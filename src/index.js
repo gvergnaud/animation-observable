@@ -1,9 +1,9 @@
 const { Observable } = require('rxjs')
 
 const raf$ = new Observable(observer => {
-  const requestAnimationFrame =  window && window.requestAnimationFrame
-    ? window.requestAnimationFrame
-    : f => { setTimeout(f, 60 / 1000) }
+  const requestAnimationFrame =  !!this && this.requestAnimationFrame
+    ? this.requestAnimationFrame
+    : f => { setTimeout(f, 1000 / 60) }
 
   let isRunning = true
 

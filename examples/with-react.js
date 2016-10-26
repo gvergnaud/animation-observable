@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { animate, fromTo, to, combineLatestStyles } from '../src'
-import { easeInOutQuart, easeOutQuint } from './easings'
+import { easeInOutQuart, easeOutQuint } from '../src/easings'
 
 const x$ =
   animate(2000)

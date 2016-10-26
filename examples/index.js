@@ -17,6 +17,4 @@ const scale$ =
     .map(scale => ({ scale }))
 
 combineLatestStyles(x$, scale$)
-  .map(style => (
-    <div style={style} />
-  ))
+  .map(style => console.log(style))

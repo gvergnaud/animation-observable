@@ -1,33 +1,3 @@
-# animation-observable
-Compose animations with rxjs observable (POC)
-
-## Simple example:
-
-```js
-const { animate, fromTo, to, combineLatestStyles } = require('../src')
-const { easeInOutQuart, easeOutQuint } = require('./easings')
-
-const x$ =
-  animate(2000)
-    .map(easeInOutQuart)
-    .map(to(250))
-    .startWith(0)
-    .map(x => ({ x }))
-
-const scale$ =
-  animate(1000)
-    .delay(1000)
-    .map(easeOutQuint)
-    .map(fromTo(.5, 1))
-    .startWith(.5)
-    .map(scale => ({ scale }))
-
-combineLatestStyles(x$, scale$)
-  .map(style => console.log(style))
-```
-
-## With React
-```js
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { animate, fromTo, to, combineLatestStyles } from '../src'
@@ -63,11 +33,10 @@ class App extends Component {
   render() {
     return (
       <div style={this.state.style} onClick={() => this.animate()}>
-        Im animated!
+        I'm animated !
       </div>
     )
   }
 }
 
 render(<App />, document.querySelector('#app'))
-```

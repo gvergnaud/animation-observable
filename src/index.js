@@ -1,19 +1,19 @@
 const { Observable } = require('rxjs')
 
-// emulate the requestAnimationFrame to be executed in nodejs
-const window = {
-  requestAnimationFrame: (f) => {
-    setTimeout(f, 60 / 1000)
-  }
-}
-
 const raf$ = new Observable(observer => {
+  const requestAnimationFrame =  window && window.requestAnimationFrame
+    ? window.requestAnimationFrame
+    : f => { setTimeout(f, 60 / 1000) }
+
   let isRunning = true
+
   const loop = () => {
     observer.next()
-    if (isRunning) window.requestAnimationFrame(loop)
+    if (isRunning) requestAnimationFrame(loop)
   }
+
   loop()
+
   return { unsubscribe: () => { isRunning = false } }
 })
 

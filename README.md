@@ -23,7 +23,7 @@ const scale$ =
     .map(scale => ({ scale }))
 
 combineLatestStyles(x$, scale$)
-  .map(style => console.log(style))
+  .forEach(style => console.log(style))
 ```
 
 ## With React

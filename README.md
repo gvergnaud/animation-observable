@@ -71,3 +71,5 @@ class App extends Component {
 
 render(<App />, document.querySelector('#app'))
 ```
+
+To try it out, just clone the repo and type `npm i && npm start`.

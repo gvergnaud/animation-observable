@@ -1,20 +1,4 @@
 const { Observable } = require('rxjs')
-const {
-  linear,
-  easeInQuad,
-  easeOutQuad,
-  easeInOutQuad,
-  easeInCubic,
-  easeOutCubic,
-  easeInOutCubic,
-  easeInQuart,
-  easeOutQuart,
-  easeInOutQuart,
-  easeInQuint,
-  easeOutQuint,
-  easeInOutQuint,
-} = require('./easings')
-const { range } = require('lodash/fp')
 
 // emulate the requestAnimationFrame to be executed in nodejs
 const window = {
@@ -39,12 +23,18 @@ const animate = duration => raf$
   .map(time => time / duration)
   .takeUntil(Observable.interval(duration).take(1))
 
+const fromTo = (start, end) => t => start + t * (end - start)
+const to = end => fromTo(0, end)
 
-animate(2000)
-  .map(easeInOutQuart)
-  .do(x => console.log('easeInOutQuart', x))
-  .forEach(x => {
-    process.stdout.write("\033[" + 2 + "A") // move cursor up
-    process.stdout.write("\r\x1b[K") // clearLine
-    console.log(range(0, x * 200).reduce(acc => acc + '=', ''))
-  })
+const combineLatestStyles = (...obs) =>
+  Observable
+    .combineLatest(...obs, (...values) => Object.assign({}, ...values))
+    .sample(raf$)
+
+
+module.exports = {
+  animate,
+  fromTo,
+  to,
+  combineLatestStyles,
+}
